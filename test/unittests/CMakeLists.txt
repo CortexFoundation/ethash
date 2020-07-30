@@ -10,12 +10,12 @@ add_executable(
     helpers.hpp
     test_bit_manipulation.cpp
     test_cases.hpp
-    test_ethash.cpp
-    test_keccak.cpp
+#    test_ethash.cpp
+#    test_keccak.cpp
     test_kiss.cpp
     test_managed.cpp
     test_primes.cpp
-    test_progpow.cpp
+#    test_progpow.cpp
     test_version.cpp
 )
 

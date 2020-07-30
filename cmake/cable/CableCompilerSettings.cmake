@@ -29,6 +29,21 @@ endfunction()
 
 # Configures the compiler with default flags.
 macro(cable_configure_compiler)
+
+message(STATUS "using riscv")
+set(CMAKE_SYSTEM_NAME Generic)
+set(CMAKE_SYSTEM_PROCESSOR riscv)
+set(CMAKE_CROSSCOMPILING 1)
+set(CMAKE_CXX_COMPILER "/opt/riscv/bin/riscv64-unknown-linux-gnu-g++")
+set(CMAKE_C_COMPILER "/opt/riscv/bin/riscv64-unknown-linux-gnu-gcc")
+set(CMAKE_ASM_COMPILER "/opt/riscv/bin/riscv64-unknown-linux-gnu-gcc")
+set(CMAKE_LINKER "/opt/riscv/bin/riscv64-unknown-linux-gnu-ld")
+set(CMAKE_AR "/opt/riscv/bin/riscv64-unknown-linux-gnu-ar")
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
     if(NOT PROJECT_IS_NESTED)
         # Do this configuration only in the top project.
 
@@ -103,16 +118,16 @@ macro(cable_configure_compiler)
 
         # Option for arch=native.
         option(NATIVE "Build for native CPU" OFF)
-        if(NATIVE)
-            if(MSVC)
-                add_compile_options(-arch:AVX)
-            else()
-                add_compile_options(-mtune=native -march=native)
-            endif()
-        elseif(NOT MSVC)
-            # Tune for currently most common CPUs.
-            cable_add_cxx_compiler_flag_if_supported(-mtune=generic)
-        endif()
+#        if(NATIVE)
+#            if(MSVC)
+#                add_compile_options(-arch:AVX)
+#            else()
+#                add_compile_options(-mtune=native -march=native)
+#            endif()
+#        elseif(NOT MSVC)
+#            # Tune for currently most common CPUs.
+#            cable_add_cxx_compiler_flag_if_supported(-mtune=generic)
+#        endif()
 
         # Sanitizers support.
         set(SANITIZE OFF CACHE STRING "Build with the specified sanitizer")
